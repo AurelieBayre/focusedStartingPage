@@ -1,0 +1,74 @@
+#slant {
+    background: blueviolet;
+    background: linear-gradient(to right, #007991 , #3cb8bd);    
+    height: 80%;
+    padding: 3%;
+    transform: skewY(-5deg);
+}
+
+
+#slant > #textTitle {
+    transform: skewY(5deg);
+}
+
+.page {
+    font-family: "Gill Sans", sans-serif;
+    margin: 0 auto;
+    width: 700px;
+    padding: 10px;
+}
+
+header {
+    color: #ff8533;
+}
+
+h1 {    
+    margin: 100px 0 0 0;
+   
+}
+
+h2 {
+    color: #fd9b5a;
+}
+
+ul {
+    font-size: 2em;
+}
+
+li>a:link {
+    color: #3cb8bd;
+    text-decoration: none;
+
+}
+li > a:visited {
+    color: #3cb8bd;
+}
+li > a:hover {
+    color: #095666;
+    letter-spacing: 2px;
+}
+
+
+#focus {
+    color: #007991;
+    font-size: 0.8em;
+    position: relative;
+    margin: 5% 0 0 40%;
+}
+
+#goal {
+   font-size: 2em;
+}
+
+footer {
+    bottom: 0;
+    color: #007991;
+    font-weight: bold;
+    font-size: 0.8em;
+    position: absolute;
+    
+    
+}
+
+
+
