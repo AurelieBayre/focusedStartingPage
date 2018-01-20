@@ -1,4 +1,5 @@
 //TODO: getting user input and caching user input functions
+//more specifically: get name, get goal, get goal date, get priorities.
 //and then, cache those in the browser!!!
 
 const goal = "Wild Code School";
