@@ -60,14 +60,39 @@ li > a:hover {
    font-size: 2em;
 }
 
+
+#addPriorities {
+    border-style: solid;
+    border-radius: 50%;
+    border-width: thin;
+    color: #3cb8bd;
+    display: inline-block;
+    height: 1.5em; 
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin: 0 0 0 43%;
+    text-align: center;
+    width: 1.5em;
+}
+
+#addUserData {
+    border-style: solid;
+    border-radius: 50%;
+    border-width: thin;
+    color: #fd9b5a;
+    display: inline-block;
+    height: 1em; 
+    font-size: 1em;
+    line-height: 1em;
+    text-align: center;
+    width: 1em;
+}
 footer {
     bottom: 0;
     color: #007991;
     font-weight: bold;
     font-size: 0.8em;
-    position: absolute;
-    
-    
+    position: absolute;    
 }
 
 
