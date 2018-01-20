@@ -34,6 +34,32 @@ const mesPrios =
     url: "https://github.com/AurelieBayre/integration"}
 ]
 
+
+//OK something is NOT WORKING HERE,
+function display(str, target){
+    document.getElementById(target).innerHTML = str;
+}
+
+//forms
+function showSettingsForm (){
+    document.getElementById("getUserSettings").style.display = "block";
+    //ref: http://jsfiddle.net/rathoreahsan/vzmnJ/
+}
+
+function processSettings () {
+    const settings = document.getElementById("generalSettings");
+    const userName = settings.elements["userName"].value;
+    const userGoal = settings.elements["userGoal"].value;
+    const userDeadline = settings.elements["userDeadline"].value;
+    //console.log(userName, userGoal, userDeadline);
+    
+   // SO I'm calling the non working function here, WHAT's HPPENING,???
+    display(userName, "test");
+   // display(userGoal, "goal");
+}
+
+
+
 function makeList(arr){
     for(let i = 0; i < arr.length; i ++){
       // console.log(i)
@@ -51,4 +77,4 @@ function makeList(arr){
 }
 makeList(mesPrios);
 
-document.getElementById("goal").innerHTML = goal + " !";
+//document.getElementById("goal").innerHTML = goal + " !";

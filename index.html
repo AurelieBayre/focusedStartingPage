@@ -13,22 +13,26 @@
         <div id="slant">
         <div id="textTitle">
        <header class="page">
-           <div id="setGoalDate">
-                <h1>
+           <div id="setUserSettings">
+                <h1 id="name">
                 Hello Aurélie! 
                 </h1>
+                <h1 id="test"></h1>
                 <h2 id="countDown"></h2> 
                 <p id="goal"></p>  
-                <p id="addUserData">+</p>
+                <p id="addUserSettings" onclick="showSettingsForm()">+</p>
            </div>
-           <div id="getNameGoalDate">
-            <form id="generalData">
-                Your name:
+           <div id="getUserSettings"  style="display:none;">
+            <form id="generalSettings">
+                 Your name:
                 <br><input name="userName" type="text">
                 <br>Your goal:
                 <br><input name="userGoal" type="text">
-                <br>Set date to reach your goal:
-                <br><input name"userGoalDate" type="date">
+                <br>Set your deadline:
+                <br><input name="userDeadline" type="date">
+                <button onclick="processSettings()">
+                    Got that!
+                   </button>
             </form>
            </div>
            
