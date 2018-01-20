@@ -2,27 +2,27 @@
 //more specifically: get name, get goal, get goal date, get priorities.
 //and then, cache those in the browser!!!
 
+///OLD DISPLAYING RULES (hardcoding)
 const goal = "Wild Code School";
 
-//le jour-objectif:
+//goal date:
 const countDownDay = new Date("Feb 23, 2018").getTime();
 //la donnée pour maintenant
 const now = new Date().getTime();
 //console.log(countDownDay, now);
 
-//intervalle entre maintenant et l'objectif:
+//interval between now and goal date:
 const interval = countDownDay - now;
 
-//classons en jours:
+//count that in Days units:
 const remainingDays = Math.floor(interval/ (1000 * 60 * 60 * 24));
 
-//Afficher tout ça:
+//Display the countdown:
 const displayMessage = `${remainingDays} jours avant :`;
-
 document.getElementById("countDown").innerHTML = displayMessage;
 
+// Array of objects: my priorities
 //const myPriorities = ["finir le cours PHP", "finir le cours MySql", "continuer les algos", "finir les exemples webdesign"];
-
 const mesPrios = 
     [{name:"finir le cours php",
     url: "https://www.sololearn.com/Profile/6689025/PHP"},
@@ -35,6 +35,26 @@ const mesPrios =
 ]
 
 
+//Display those priorities:
+function makeList(arr){
+    for(let i = 0; i < arr.length; i ++){
+      // console.log(i)
+        let a = document.createElement("a");
+        let newLi = document.createElement("li");
+        a.textContent = mesPrios[i].name;
+        a.setAttribute("href", mesPrios[i].url);
+        a.setAttribute("target", "_blank");
+
+        newLi.appendChild(a);
+        document.getElementById("priorities").appendChild(newLi);
+        // This Stackoverflow helped a lot: 
+        //https://stackoverflow.com/questions/21977349/javascript-cant-add-href-to-list-item
+    }
+}
+makeList(mesPrios);
+
+///////////////////////////////////////////////////////////////
+//// NEW DISPPLAYING RULES (no hard coding: from user inputs)
 //OK something is NOT WORKING HERE,
 function display(str, target){
     document.getElementById(target).innerHTML = str;
@@ -59,22 +79,5 @@ function processSettings () {
 }
 
 
-
-function makeList(arr){
-    for(let i = 0; i < arr.length; i ++){
-      // console.log(i)
-        let a = document.createElement("a");
-        let newLi = document.createElement("li");
-        a.textContent = mesPrios[i].name;
-        a.setAttribute("href", mesPrios[i].url);
-        a.setAttribute("target", "_blank");
-
-        newLi.appendChild(a);
-        document.getElementById("priorities").appendChild(newLi);
-        // This Stackoverflow helped a lot: 
-        //https://stackoverflow.com/questions/21977349/javascript-cant-add-href-to-list-item
-    }
-}
-makeList(mesPrios);
 
 //document.getElementById("goal").innerHTML = goal + " !";
