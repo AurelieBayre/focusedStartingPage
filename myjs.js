@@ -81,7 +81,7 @@ function populateHTML(obj) {
     let goalMessage = `${obj.goal}!`;
 
     display(greetings, "name");
-    display(countdownMessage, "countDown")
+    //display(countdownMessage, "countDown") //OOOPS have to change it because as it is, it won't update!!!
     display(goalMessage, "goal");
 }
 
@@ -108,15 +108,13 @@ document.getElementById("validateSettings").addEventListener("click", function()
         remaining: days
     }
 
-    //store this: 
-    if (!storageReady){
-        //console.log("I don't see storage is ready");
+  
+       
         myStorage.setItem("name", userName);
         myStorage.setItem("goal", userGoal);
         myStorage.setItem("deadline", userDeadline);
         myStorage.setItem("remaining", days);
-    }
-  
+
     //set the template literals to be passed in the html:
 
    populateHTML(userData); 
