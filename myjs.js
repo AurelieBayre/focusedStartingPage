@@ -75,24 +75,21 @@ function populateHTML(obj) {
             return `${str} days to go before:`
         }
     }
-    //TODO: calulate remaining days on every refresh!!
+
 
 
     let greetings = `Hello ${obj.name}!`;
-    let countdownMessage = alternateCountdown(obj.remaining);
+    let day = remainingDays(obj.deadline);
+    let countdownMessage = alternateCountdown(day);
     let goalMessage = `${obj.goal}!`;
 
     display(greetings, "name");
-    //display(countdownMessage, "countDown") //OOOPS have to change it because as it is, it won't update!!!
-    //ok, changed it (l93-94) but is there a more elegant way to do this?
+    display(countdownMessage, "countDown");
     display(goalMessage, "goal");
 }
 
 if (storageReady) {
-    //console.log("I can see storage is ready");
-    let refreshDays = remainingDays(myStorage.deadline);
-    display(refreshDays, "countDown");
-   populateHTML(myStorage); 
+    populateHTML(myStorage); 
 }
 //else{
   //  console.log("so it's not quite working then...");
