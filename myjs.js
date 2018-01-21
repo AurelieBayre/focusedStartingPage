@@ -109,13 +109,12 @@ document.getElementById("validateSettings").addEventListener("click", function()
     }
 
     //store this: 
-    if (!storageReady){
-        //console.log("I don't see storage is ready");
+   
         myStorage.setItem("name", userName);
         myStorage.setItem("goal", userGoal);
         myStorage.setItem("deadline", userDeadline);
         myStorage.setItem("remaining", days);
-    }
+   
   
     //set the template literals to be passed in the html:
 
