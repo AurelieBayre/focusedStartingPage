@@ -61,23 +61,30 @@ function display(str, target){
 }
 
 //forms
-function showSettingsForm (){
+function showSettingsForm(){
     document.getElementById("getUserSettings").style.display = "block";
     //ref: http://jsfiddle.net/rathoreahsan/vzmnJ/
 }
+var userData = [];
 
-function processSettings () {
+function processSettings() {
     const settings = document.getElementById("generalSettings");
-    const userName = settings.elements["userName"].value;
-    const userGoal = settings.elements["userGoal"].value;
-    const userDeadline = settings.elements["userDeadline"].value;
+    let userName = settings.elements["userName"].value;
+    let userGoal = settings.elements["userGoal"].value;
+    let userDeadline = settings.elements["userDeadline"].value;
+
+    userData.push(userName);
+    userData.push(userGoal);
+    userData.push(userDeadline);
+    console.log(userData);
+    return userData;
     //console.log(userName, userGoal, userDeadline);
     
    // SO I'm calling the non working function here, WHAT's HPPENING,???
-    display(userName, "test");
+   // display(userName, "test");
    // display(userGoal, "goal");
 }
-
+console.log(userData);
 
 
 //document.getElementById("goal").innerHTML = goal + " !";
