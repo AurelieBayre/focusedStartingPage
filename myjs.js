@@ -75,18 +75,23 @@ function populateHTML(obj) {
             return `${str} days to go before:`
         }
     }
-    
+    //TODO: calulate remaining days on every refresh!!
+
+
     let greetings = `Hello ${obj.name}!`;
     let countdownMessage = alternateCountdown(obj.remaining);
     let goalMessage = `${obj.goal}!`;
 
     display(greetings, "name");
     //display(countdownMessage, "countDown") //OOOPS have to change it because as it is, it won't update!!!
+    //ok, changed it (l93-94) but is there a more elegant way to do this?
     display(goalMessage, "goal");
 }
 
 if (storageReady) {
     //console.log("I can see storage is ready");
+    let refreshDays = remainingDays(myStorage.deadline);
+    display(refreshDays, "countDown");
    populateHTML(myStorage); 
 }
 //else{
@@ -108,13 +113,15 @@ document.getElementById("validateSettings").addEventListener("click", function()
         remaining: days
     }
 
-  
-       
+    //store this: 
+   
         myStorage.setItem("name", userName);
         myStorage.setItem("goal", userGoal);
         myStorage.setItem("deadline", userDeadline);
-        myStorage.setItem("remaining", days);
-
+        //myStorage.setItem("remaining", days);
+        //no don't store the remaining days! Calculate them everyday.
+   
+  
     //set the template literals to be passed in the html:
 
    populateHTML(userData); 
