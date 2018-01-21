@@ -15,11 +15,11 @@ const now = new Date().getTime();
 const interval = countDownDay - now;
 
 //count that in Days units:
-const remainingDays = Math.floor(interval/ (1000 * 60 * 60 * 24));
+//const remainingDays = Math.floor(interval/ (1000 * 60 * 60 * 24));
 
 //Display the countdown:
-const displayMessage = `${remainingDays} jours avant :`;
-document.getElementById("countDown").innerHTML = displayMessage;
+//const displayMessage = `${remainingDays} jours avant :`;
+//document.getElementById("countDown").innerHTML = displayMessage;
 
 // Array of objects: my priorities
 //const myPriorities = ["finir le cours PHP", "finir le cours MySql", "continuer les algos", "finir les exemples webdesign"];
@@ -56,6 +56,14 @@ makeList(mesPrios);
 ///////////////////////////////////////////////////////////////
 //// NEW DISPPLAYING RULES (no hard coding: from user inputs)
 
+function remainingDays(dateStr){
+let goalDate = new Date(dateStr).getTime();
+let now = new Date().getTime();
+let interval = goalDate - now;
+let daysToGo = Math.floor(interval/ (1000 * 60 * 60 * 24));
+return daysToGo;
+}
+
 function display(str, target){
      document.getElementById(target).innerHTML = str;
 }
@@ -66,31 +74,44 @@ function showSettingsForm(){
     //ref: http://jsfiddle.net/rathoreahsan/vzmnJ/
 }
 
-var userData = [];
+
 
 document.getElementById("validateSettings").addEventListener("click", function(){
-    userData = [];
+
     let settings = document.getElementById("generalSettings");
     let userName = settings.elements["userName"].value;
     let userGoal = settings.elements["userGoal"].value;
     let userDeadline = settings.elements["userDeadline"].value;
+    let days = remainingDays(userDeadline);
 
-    userData.push(userName);
-    userData.push(userGoal);
-    userData.push(userDeadline);
-    document.getElementById("name").innerHTML = userData[0];
-});
+    let userData = {
+        name: userName,
+        goal: userGoal,
+        deadline: userDeadline,
+        remaining: days
+    }
 
-/*
-function processSettings() {
+    //set the template literals to be passed in the html:
+
     
-   // console.log(userData);
-    return userData; //don't forget to RETURN the variable! 
-    //or else all you find stays inside the function and never goes out.
-}
-console.log(userData);
-display("not working right now", "name");
-console.log(userData[1]);
+    function alternateCountdown(str) {
+        if (str < 1) {
+            return `You've reached the deadline for:`
+        }
+        if (str === 1){
+            return `Only 1 day to go before:`
+        }
+        if (str > 1){
+            return `${str} days to go before:`
+        }
+    }
+    let greetings = `Hello ${userData.name}!`;
+    let countdownMessage = alternateCountdown(userData.remaining);
+    let goalMessage = `${userData.goal}!`;
 
-document.getElementById("goal").innerHTML = "yes!!";
-*/
+    ///STORING : should store userData. then , if storage isn't empty, populate html with the storage data on page load.
+    
+    display(greetings, "name");
+    display(countdownMessage, "countDown")
+    display(goalMessage, "goal");
+});
