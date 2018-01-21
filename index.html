@@ -13,11 +13,30 @@
         <div id="slant">
         <div id="textTitle">
        <header class="page">
-           <h1>
-            Hello Aurélie! 
-            </h1>
-            <h2 id="countDown"></h2> 
-            <p id="goal"></p>  
+           <div id="setUserSettings">
+                <h1 id="name">
+                Hello new user! 
+                </h1>
+                
+                <h2 id="countDown">set your deadline</h2> 
+                <p id="goal">and your goal!</p>  
+                <p id="addUserSettings" onclick="showSettingsForm()">+</p>
+           </div>
+           <div id="getUserSettings"  style="display:none;">
+            <form id="generalSettings">
+                 Your name:
+                <br><input name="userName" type="text">
+                <br>Your goal:
+                <br><input name="userGoal" type="text">
+                <br>Set your deadline:
+                <br><input name="userDeadline" type="date">
+                
+            </form>
+            <button id="validateSettings">
+                Got that!
+               </button>
+           </div>
+           
        </header>
        </div>
        </div>
@@ -31,12 +50,14 @@
                <ul id="priorities">
                </ul>
            </div>
-       </section>
-    
+        </section>
+        
+            <p id="addPriorities">+</p>
+        
 
        
        <footer class="page">
-           <p>Made with lots of fun by Aurélie Bayre, 19-20/01/18.</p>
+           <p>Made with lots of fun by Aurélie Bayre, 19-21/01/18.</p>
        </footer>
        
        <script type="text/javascript" src="myjs.js"></script>
