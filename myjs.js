@@ -55,9 +55,9 @@ makeList(mesPrios);
 
 ///////////////////////////////////////////////////////////////
 //// NEW DISPPLAYING RULES (no hard coding: from user inputs)
-//OK something is NOT WORKING HERE,
+
 function display(str, target){
-    document.getElementById(target).innerHTML = str;
+     document.getElementById(target).innerHTML = str;
 }
 
 //forms
@@ -65,10 +65,12 @@ function showSettingsForm(){
     document.getElementById("getUserSettings").style.display = "block";
     //ref: http://jsfiddle.net/rathoreahsan/vzmnJ/
 }
+
 var userData = [];
 
-function processSettings() {
-    const settings = document.getElementById("generalSettings");
+document.getElementById("validateSettings").addEventListener("click", function(){
+    userData = [];
+    let settings = document.getElementById("generalSettings");
     let userName = settings.elements["userName"].value;
     let userGoal = settings.elements["userGoal"].value;
     let userDeadline = settings.elements["userDeadline"].value;
@@ -76,15 +78,19 @@ function processSettings() {
     userData.push(userName);
     userData.push(userGoal);
     userData.push(userDeadline);
-    console.log(userData);
-    return userData;
-    //console.log(userName, userGoal, userDeadline);
+    document.getElementById("name").innerHTML = userData[0];
+});
+
+/*
+function processSettings() {
     
-   // SO I'm calling the non working function here, WHAT's HPPENING,???
-   // display(userName, "test");
-   // display(userGoal, "goal");
+   // console.log(userData);
+    return userData; //don't forget to RETURN the variable! 
+    //or else all you find stays inside the function and never goes out.
 }
 console.log(userData);
+display("not working right now", "name");
+console.log(userData[1]);
 
-
-//document.getElementById("goal").innerHTML = goal + " !";
+document.getElementById("goal").innerHTML = "yes!!";
+*/
