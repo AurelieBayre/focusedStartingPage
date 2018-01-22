@@ -41,6 +41,8 @@ makeList(mesPrios);
 ///////////////////////////////////////////////////////////////
 //// NEW DISPPLAYING RULES (no hard coding: from user inputs)
 
+
+//calculating the number of days until deadline
 function remainingDays(dateStr){
 let goalDate = new Date(dateStr).getTime();
 let now = new Date().getTime();
@@ -49,21 +51,25 @@ let daysToGo = Math.floor(interval/ (1000 * 60 * 60 * 24));
 return daysToGo;
 }
 
+//populating the page with the data:
 function display(str, target){
      document.getElementById(target).innerHTML = str;
 }
 
-//forms
-function showSettingsForm(){
-    document.getElementById("getUserSettings").style.display = "block";
+// Make the settings form appear or disappear.
+function toggleSettingsForm(){
+    var settingsForm = document.getElementById("getUserSettings");
     //ref: http://jsfiddle.net/rathoreahsan/vzmnJ/
+    //toggling effect: https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+    if (settingsForm.style.display === "none") {
+        settingsForm.style.display = "block";
+    } else {
+        settingsForm.style.display = "none";
+    }
 }
-
-let storageReady = myStorage.length > 0;
 
 
 function populateHTML(obj) {
-    
     function alternateCountdown(str) {
         if (str < 1) {
             return `You've reached the deadline for:`
@@ -76,8 +82,6 @@ function populateHTML(obj) {
         }
     }
 
-
-
     let greetings = `Hello ${obj.name}!`;
     let day = remainingDays(obj.deadline);
     let countdownMessage = alternateCountdown(day);
@@ -88,12 +92,15 @@ function populateHTML(obj) {
     display(goalMessage, "goal");
 }
 
+
+
+let storageReady = myStorage.length > 0;
+
+// Now if the cache is full, we populate the html with the storage data.
 if (storageReady) {
     populateHTML(myStorage); 
 }
-//else{
-  //  console.log("so it's not quite working then...");
-//}
+//if the User adds data, we fill the cache and we fill the html with those data.
 document.getElementById("validateSettings").addEventListener("click", function(){
     myStorage.clear();
     
@@ -123,3 +130,22 @@ document.getElementById("validateSettings").addEventListener("click", function()
 
    populateHTML(userData); 
    });
+
+
+   ////////////
+   ///the priorities:
+   /*
+   1. make a new form
+   2 make a type text input.
+   3. make a button add 
+   4. make a button trash
+
+   5. when user click add:
+   assign value of input to variable. 
+   make a new html element and inject the value of input into it.
+   store item. (How?) (I mean, how do I set the key? )
+
+    add item to array. set key and value as such: setItem("prio" + index, userItem);
+
+
+   */
