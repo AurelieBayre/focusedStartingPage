@@ -135,9 +135,6 @@ document.getElementById("validateSettings").addEventListener("click", function()
    ////////////
    ///the priorities:
    /*
-   1. make a new form
-   2 make a type text input.
-   3. make a button add 
    4. make a button trash
 
    5. when user click add:
@@ -147,10 +144,13 @@ document.getElementById("validateSettings").addEventListener("click", function()
 
     add item to array. set key and value as such: setItem("prio" + index, userItem);
 
-
    */
-
+/* IndexDB thingy....
   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+
+  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
 
   if (!window.indexedDB) {
     window.alert("Your browser doesn't support IndexDB. Cannot record your priorities list for the moment. :(")
@@ -170,8 +170,30 @@ request.onsuccess = function(event) {
     //on va populer le html
 }
 
-//Create the object store for priorities
-let objectStore = db.createObjectStore("userPriorities", { keypath: "prioTitle"}, autoIncrement);
-// so what will we have in our objectStore?
+request.onupgradeneeded = function(event) {
 
-objectStore.createIndex("title", "title" {})
+        //Create the object store for priorities
+    let objectStore = db.createObjectStore("userPriorities", { keypath: "prio", autoIncrement: true});
+    // so what will we have in our objectStore?
+
+        //usint unique : false in case tasks or urls are the same.
+    objectStore.createIndex("by_title", "title" , {unique: false});
+    objectStore.createIndew("by_url", "url", {unique: false});
+
+    objectStore.transaction.oncomplete = function(event) {
+        let prioOjectStore = db.transaction("userPriorities", readwrite).objectStore("userPriorities");
+            //et là on fait quelque chose pour ajouter nos input à l'index.
+            
+    }
+
+
+}
+*/
+
+document.getElementById("prioAdd").addEventListener("click", function(){
+    console.log("coucou");
+let newPrio = document.getElementById("prioForm");
+let newPrioItem = newPrio.elements["prioItem"].value;
+let newPrioUrl = newPrio.elements["prioUrl"].value;
+console.log(newPrioItem, newPrioUrl);
+});
