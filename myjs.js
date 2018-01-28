@@ -2,7 +2,97 @@
 //more specifically: get name, get goal, get goal date, get priorities.
 //and then, cache those in the browser!!!
 
-//Setting up localstorage.
+//Setting up IndexDb
+
+document.addEventListener("DOMContentLoaded", function(event){
+    //https://stackoverflow.com/questions/8100576/how-to-check-if-dom-is-ready-without-a-framework
+
+    console.log("Mozilla do you see this?");
+//     // In the following line, you should include the prefixes of implementations you want to test.
+//   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+//   // DON'T use "var indexedDB = ..." if you're not in a function.
+//   // Moreover, you may need references to some window.IDB* objects:
+//   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+//   window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+// // (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
+  
+    if (!window.indexedDB) {
+      window.alert("Your browser doesn't support IndexDB. Cannot record your priorities list for the moment. :(")
+  }
+  //IndexDB: this helped! https://youtu.be/hEIyNrt6c_c
+  //Opening the Database:
+  let request = window.indexedDB.open("prioritiesDatabase", 1);
+  console.log("mozilla, say something... ");
+  //This will run every time we change the version number of prioritiesDatabase".
+  request.onupgradeneeded = function(event) {
+      console.log("Mozilla me vois tu?"); //this doesn't work...
+      let db = event.target.result;
+  //In case the code is run for the first time, we set up the objectStore:
+      if (!db.objectStoreNames.contains('test')){
+          console.log("Mozilla fais moi coucou");//this doesn't work.... :( Mozilla not working!
+            //Create the object store for priorities
+      let objectStore = db.createObjectStore("test", { keypath: "id", autoIncrement: true});
+      objectStore.createIndex("task", "task", {unique: false});
+      objectStore.createIndex("url", "url", {unique: false});
+      }    
+  }
+  
+  //YAY! Success!
+  request.onsuccess = function(event) {
+      //bon là ça marche.
+      console.log("ok db request working");
+      db = event.target.result;
+      //on va populer le html
+      //displayPriorities();
+  }
+  
+  //DUH! Error...
+  request.onerror = function(event) {
+      //faire un truc pour dire que ça ne marche pas...
+      console.log("db not working...");
+      };
+});
+
+//outside the doc ready function...
+//we will add our data to the database WHEN the button is clicked:
+document.getElementById("prioAdd").addEventListener("click", function(){
+    let newPrio = document.getElementById("prioForm");
+    let userItem = newPrio.elements["prioItem"].value;
+    console.log("uItem is: ",userItem);
+    let userUrl = newPrio.elements["prioUrl"].value;
+
+    //Creating the transaction variable.
+
+    let transaction = db.transaction(["test"], "readwrite"); //Mozilla doesn't work here. 
+    // now a variable to access the objectStore.
+    let store = transaction.objectStore("test");
+
+    //define our Priority. It's an object with a task title and a url.
+    let priority = [{
+        task : userItem,
+        url: userUrl
+    }]
+    console.log(priority);
+    //Now we want to add this object into the database.
+    let request = store.add(priority[0]);
+    
+    //Success
+    request.onsuccess = function(event){
+        //display the data on the page.
+        alert("so now we need to access index DB data and display them on the page!", priority.task)
+    }
+      //error
+    request.onerror = function(event){
+        console.log("user priorities was not added to indexDB... ", event.target.error.name)
+
+    }
+});
+
+
+
+
+/////////////////////////////////
+//Setting up localstorage. (for name, goal, deadline.)
 let myStorage = window.localStorage;
 
 //myStorage.setItem("first test", "working!");
@@ -145,38 +235,17 @@ document.getElementById("validateSettings").addEventListener("click", function()
     add item to array. set key and value as such: setItem("prio" + index, userItem);
 
    */
-/* IndexDB thingy....
-  window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+// IndexDB thingy....
+
+    
 
 
-  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
 
-  if (!window.indexedDB) {
-    window.alert("Your browser doesn't support IndexDB. Cannot record your priorities list for the moment. :(")
-}
+    
 
-let request = window.indexedDB.open("prioritiesDatabase");
+// so what will we have in our objectStore?
 
-request.onerror = function(event) {
-//faire un truc pour dire que ça ne marche pas...
-console.log("db not working...");
-};
-
-request.onsuccess = function(event) {
-    //bon là ça marche.
-    console.log("ok db request working");
-
-    //on va populer le html
-}
-
-request.onupgradeneeded = function(event) {
-
-        //Create the object store for priorities
-    let objectStore = db.createObjectStore("userPriorities", { keypath: "prio", autoIncrement: true});
-    // so what will we have in our objectStore?
-
-        //usint unique : false in case tasks or urls are the same.
+  /*       //usint unique : false in case tasks or urls are the same.
     objectStore.createIndex("by_title", "title" , {unique: false});
     objectStore.createIndew("by_url", "url", {unique: false});
 
