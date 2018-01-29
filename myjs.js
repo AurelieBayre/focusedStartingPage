@@ -7,7 +7,7 @@
 document.addEventListener("DOMContentLoaded", function(event){
     //https://stackoverflow.com/questions/8100576/how-to-check-if-dom-is-ready-without-a-framework
 
-    console.log("Mozilla do you see this?");
+    console.log("Dom content loaded, let's open a database.");
 //     // In the following line, you should include the prefixes of implementations you want to test.
 //   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 //   // DON'T use "var indexedDB = ..." if you're not in a function.
@@ -21,15 +21,14 @@ document.addEventListener("DOMContentLoaded", function(event){
   }
   //IndexDB: this helped! https://youtu.be/hEIyNrt6c_c
   //Opening the Database:
-  let request = window.indexedDB.open("prioritiesDatabase", 1);
-  console.log("mozilla, say something... ");
+  let request = window.indexedDB.open("prioritiesDatabase", 2);
   //This will run every time we change the version number of prioritiesDatabase".
   request.onupgradeneeded = function(event) {
-      console.log("Mozilla me vois tu?"); //this doesn't work...
+      console.log("we're onupgradeneeded"); //this doesn't work...
       let db = event.target.result;
   //In case the code is run for the first time, we set up the objectStore:
       if (!db.objectStoreNames.contains('test')){
-          console.log("Mozilla fais moi coucou");//this doesn't work.... :( Mozilla not working!
+          console.log("apparently, db doesn't contain test");//this doesn't work.... :( Mozilla not working!
             //Create the object store for priorities
       let objectStore = db.createObjectStore("test", { keypath: "id", autoIncrement: true});
       objectStore.createIndex("task", "task", {unique: false});
@@ -40,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function(event){
   //YAY! Success!
   request.onsuccess = function(event) {
       //bon là ça marche.
-      console.log("ok db request working");
-      db = event.target.result;
+      console.log("request success: the db has been opened");
+      db = this.result;
       //on va populer le html
       //displayPriorities();
   }
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function(event){
   //DUH! Error...
   request.onerror = function(event) {
       //faire un truc pour dire que ça ne marche pas...
-      console.log("db not working...");
+      console.log("request error: could not open db.");
       };
 });
 
@@ -58,8 +57,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 document.getElementById("prioAdd").addEventListener("click", function(){
     let newPrio = document.getElementById("prioForm");
     let userItem = newPrio.elements["prioItem"].value;
-    console.log("uItem is: ",userItem);
     let userUrl = newPrio.elements["prioUrl"].value;
+    console.log("we've received user input, ready to store them.");
 
     //Creating the transaction variable.
 
@@ -71,19 +70,19 @@ document.getElementById("prioAdd").addEventListener("click", function(){
     let priority = [{
         task : userItem,
         url: userUrl
-    }]
-    console.log(priority);
+    }];
     //Now we want to add this object into the database.
     let request = store.add(priority[0]);
     
     //Success
     request.onsuccess = function(event){
+        console.log("user input has been stored!");
         //display the data on the page.
-        alert("so now we need to access index DB data and display them on the page!", priority.task)
+       // alert("so now we need to access index DB data and display them on the page!", priority.task);
     }
       //error
     request.onerror = function(event){
-        console.log("user priorities was not added to indexDB... ", event.target.error.name)
+        console.log("user priorities was not added to indexDB... ", event.target.error.name);
 
     }
 });
@@ -94,7 +93,6 @@ document.getElementById("prioAdd").addEventListener("click", function(){
 /////////////////////////////////
 //Setting up localstorage. (for name, goal, deadline.)
 let myStorage = window.localStorage;
-
 //myStorage.setItem("first test", "working!");
 
 ///OLD :
@@ -192,8 +190,7 @@ if (storageReady) {
 }
 //if the User adds data, we fill the cache and we fill the html with those data.
 document.getElementById("validateSettings").addEventListener("click", function(){
-    myStorage.clear();
-    
+    myStorage.clear(); //we discard old settings.
     let settings = document.getElementById("generalSettings");
     let userName = settings.elements["userName"].value;
     let userGoal = settings.elements["userGoal"].value;
@@ -208,61 +205,19 @@ document.getElementById("validateSettings").addEventListener("click", function()
     }
 
     //store this: 
-   
         myStorage.setItem("name", userName);
         myStorage.setItem("goal", userGoal);
         myStorage.setItem("deadline", userDeadline);
         //myStorage.setItem("remaining", days);
         //no don't store the remaining days! Calculate them everyday.
-   
-  
-    //set the template literals to be passed in the html:
+       //set the template literals to be passed in the html:
 
    populateHTML(userData); 
    });
 
-
-   ////////////
-   ///the priorities:
-   /*
-   4. make a button trash
-
-   5. when user click add:
-   assign value of input to variable. 
-   make a new html element and inject the value of input into it.
-   store item. (How?) (I mean, how do I set the key? )
-
-    add item to array. set key and value as such: setItem("prio" + index, userItem);
-
-   */
-// IndexDB thingy....
-
-    
-
-
-
-    
-
-// so what will we have in our objectStore?
-
-  /*       //usint unique : false in case tasks or urls are the same.
-    objectStore.createIndex("by_title", "title" , {unique: false});
-    objectStore.createIndew("by_url", "url", {unique: false});
-
-    objectStore.transaction.oncomplete = function(event) {
-        let prioOjectStore = db.transaction("userPriorities", readwrite).objectStore("userPriorities");
-            //et là on fait quelque chose pour ajouter nos input à l'index.
-            
-    }
-
-
-}
-*/
-
-document.getElementById("prioAdd").addEventListener("click", function(){
-    console.log("coucou");
+/*document.getElementById("prioAdd").addEventListener("click", function(){
 let newPrio = document.getElementById("prioForm");
 let newPrioItem = newPrio.elements["prioItem"].value;
 let newPrioUrl = newPrio.elements["prioUrl"].value;
 console.log(newPrioItem, newPrioUrl);
-});
+});*/
