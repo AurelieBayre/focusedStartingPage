@@ -1,9 +1,9 @@
-//TODO: getting user input and caching user input functions
-//more specifically: get name, get goal, get goal date, get priorities.
-//and then, cache those in the browser!!!
+// Resources:
+// https://github.com/exexzian/IDBIndex-example
+// https://github.com/mdn/to-do-notifications
+
 
 //Setting up IndexDb
-//let db;
 
 let sendInput = document.getElementById("prioAdd");
 
