@@ -18,3 +18,4 @@ a starting page for my browser customized to help me stay focused.
 * populate page from IndexDB
 * add a trash icon + complete icon
 * set rules for trashed or completed item
+* merge all the branches and voilà :)
