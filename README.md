@@ -12,6 +12,8 @@ a starting page for my browser customized to help me stay focused.
 6. setting another form to get priority item and priority item url. (storingPrioritiesDB)
 7. setting up an IndexedDB store to store objects for each new priority (storingPrioritiesDB)
 8. see why indexdb doesn't work with firefox and fix it. (debugFirefoxDB) (Spoiler: in fact it works but firefox doesn't display the db in the console tools.)
+9. Created a 'develop' branch, to test each of my feature brances, before merging the features in Master.
+10. Merged storingUserInput branch to develop, tested it, merged develop to master.
 
 ## Todo:
 
