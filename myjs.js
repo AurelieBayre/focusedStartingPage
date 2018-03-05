@@ -2,41 +2,40 @@
 //more specifically: get name, get goal, get goal date, get priorities.
 //and then, cache those in the browser!!!
 
-//Setting up localstorage.
-let myStorage = window.localStorage;
+
 
 //myStorage.setItem("first test", "working!");
 
 ///OLD :
-const mesPrios = 
-    [{name:"finir le cours php",
-    url: "https://www.sololearn.com/Profile/6689025/PHP"},
-    {name: "finir le cours SQL",
-    url: "https://www.sololearn.com/Profile/6689025/SQL"},
-    {name: "continuer les algos",
-    url: "http://www.france-ioi.org/user/perso.php?sLogin=aureliebayre&bShow=Afficher"},
-    {name: "finir les exercices de webdesign",
-    url: "https://github.com/AurelieBayre/integration"}
-]
+// const mesPrios = 
+//     [{name:"finir le cours php",
+//     url: "https://www.sololearn.com/Profile/6689025/PHP"},
+//     {name: "finir le cours SQL",
+//     url: "https://www.sololearn.com/Profile/6689025/SQL"},
+//     {name: "continuer les algos",
+//     url: "http://www.france-ioi.org/user/perso.php?sLogin=aureliebayre&bShow=Afficher"},
+//     {name: "finir les exercices de webdesign",
+//     url: "https://github.com/AurelieBayre/integration"}
+// ]
 
 
-//Display those priorities:
-function makeList(arr){
-    for(let i = 0; i < arr.length; i ++){
-      // console.log(i)
-        let a = document.createElement("a");
-        let newLi = document.createElement("li");
-        a.textContent = mesPrios[i].name;
-        a.setAttribute("href", mesPrios[i].url);
-        a.setAttribute("target", "_blank");
+// //Display those priorities:
+// function makeList(arr){
+//     for(let i = 0; i < arr.length; i ++){
+//       // console.log(i)
+//         let a = document.createElement("a");
+//         let newLi = document.createElement("li");
+//         a.textContent = mesPrios[i].name;
+//         a.setAttribute("href", mesPrios[i].url);
+//         a.setAttribute("target", "_blank");
 
-        newLi.appendChild(a);
-        document.getElementById("priorities").appendChild(newLi);
-        // This Stackoverflow helped a lot: 
-        //https://stackoverflow.com/questions/21977349/javascript-cant-add-href-to-list-item
-    }
-}
-makeList(mesPrios);
+//         newLi.appendChild(a);
+//         document.getElementById("priorities").appendChild(newLi);
+//         // This Stackoverflow helped a lot: 
+//         //https://stackoverflow.com/questions/21977349/javascript-cant-add-href-to-list-item
+//     }
+// }
+// makeList(mesPrios);
 
 ///////////////////////////////////////////////////////////////
 //// NEW DISPPLAYING RULES (no hard coding: from user inputs)
@@ -92,7 +91,8 @@ function populateHTML(obj) {
     display(goalMessage, "goal");
 }
 
-
+//Setting up localstorage.
+let myStorage = window.localStorage;
 
 let storageReady = myStorage.length > 0;
 
