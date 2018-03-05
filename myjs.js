@@ -1,7 +1,7 @@
 // Resources:
 // https://github.com/exexzian/IDBIndex-example
 // https://github.com/mdn/to-do-notifications
-
+// https://youtu.be/hEIyNrt6cc
 
 //Setting up IndexDb
 
@@ -11,7 +11,7 @@ let sendInput = document.getElementById("prioAdd");
 let priority = [{
     task : "",
     url: ""
-}];
+    }];
 
 //outside the doc ready function...
 //we will add our data to the database WHEN the button is clicked:
@@ -31,37 +31,38 @@ window.onload = function(){
   window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
 // (Mozilla has never prefixed these objects, so we don't need window.mozIDB*)
   
-//     if (!window.indexedDB) {
-//       window.alert("Your browser doesn't support IndexDB. Cannot record your priorities list for the moment. :(")
-//   }
-  //IndexDB: this helped! https://youtu.be/hEIyNrt6c_c
+    if (!window.indexedDB) {
+      window.alert("Your browser doesn't support IndexDB. Cannot record your priorities list for the moment. :(")
+  }
+  
   //Opening the Database:
   
-  let openRequest = window.indexedDB.open("prioritiesDatabase", 11);
+    let openRequest = window.indexedDB.open("prioritiesDatabase", 11);
   
   //This will run every time we change the version number of prioritiesDatabase".
-  openRequest.onupgradeneeded = function(event) {
-    console.log("we're onupgradeneeded");
-    let db = event.target.result;
-     console.log("bug: is it after let db?");
-    db.onerror = function(event) {
-        console.log("error in openrequest.onupgradeneeded");
-    };
-    
-     //Create the object store for priorities
-     let objectStore = db.createObjectStore("MyStore2", { keypath: "id", autoIncrement: true});
-    console.log("bug: is it on let objectStore?");
-     //create the types of data stored in "test"
-     objectStore.createIndex("task", "task", {unique: false});
-     console.log("bug: is it on index tasks?");
-     objectStore.createIndex("url", "url", {unique: false});
-     console.log("bug: is it on indexurl?");
-     //apparently I don't need this?
-    //   if (!db.objectStoreNames.contains('test')){
-    //       console.log("apparently, db doesn't contain test");//this doesn't work.... :( Mozilla not working!
-            
-    //   }    
-  };
+
+    openRequest.onupgradeneeded = function(event) {
+        console.log("we're onupgradeneeded");
+        let db = event.target.result;
+        console.log("bug: is it after let db?");
+        db.onerror = function(event) {
+            console.log("error in openrequest.onupgradeneeded");
+            };
+        
+        //Create the object store for priorities
+        let objectStore = db.createObjectStore("MyStore2", { keypath: "id", autoIncrement: true});
+        console.log("bug: is it on let objectStore?");
+        //create the types of data stored in "test"
+        objectStore.createIndex("task", "task", {unique: false});
+        console.log("bug: is it on index tasks?");
+        objectStore.createIndex("url", "url", {unique: false});
+        console.log("bug: is it on indexurl?");
+        //apparently I don't need this?
+        //   if (!db.objectStoreNames.contains('test')){
+        //       console.log("apparently, db doesn't contain test");//this doesn't work.... :( Mozilla not working!
+                
+        //   }    
+        };
   
     //YAY! Success!
     openRequest.onsuccess = function(event) {
@@ -80,11 +81,11 @@ window.onload = function(){
         let getOne = store.get(1);
         getOne.onsuccess = function() {
             console.log("no bug, here is the data: ", getOne.result);
-        }
+            }
         tx.oncomplete = function() {
             db.close();
-        }//this work in Chrome.
-    };
+            }//this work in Chrome.
+        };
   
     //DUH! Error...
     openRequest.onerror = function(event) {
@@ -98,7 +99,7 @@ window.onload = function(){
        // let transaction = db.transaction(["retest"], "readwrite");
         
         //now we need to get the data from the db, and show it on the page
-    };
+        };
 
     //eventListener on the submittng button.
     sendInput.addEventListener("submit", addPrio, false);
@@ -137,27 +138,22 @@ window.onload = function(){
             console.log("adding new prio to store failed...:'(")
         }
         //here, the mdn app clears the form. Is it necessary? I have to tst without and with.
-
     };
 
     //TODO!!! A function to delete data!
 
+    //Getting the Data
     function getData(){
         let transaction = db.transaction(["prioritiesDatabase"], "readwrite");
         transaction.oncomplete = function(event) {
             console.log("we can get the data");
-        }
+            }
     
         var objectStore = transaction.objectStore("retest");
         var objectStoreRequest = objectStore.get("please");
         var myRecord = objectStoreRequest.result;
-        console.log("myRecord");
-    }
-    
-
-    
-
-
+        console.log("myRecord"); //it works on Chrome and Firefox
+        }
 };
 
 
