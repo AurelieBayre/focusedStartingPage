@@ -1,22 +1,5 @@
-//Setting up localstorage.
 let myStorage = window.localStorage;
-
-// ///OLD :
-// let priorities = 
-//     [{name:"finir le cours php",
-//     url: "https://www.sololearn.com/Profile/6689025/PHP"},
-//     {name: "finir le cours SQL",
-//     url: "https://www.sololearn.com/Profile/6689025/SQL"},
-//     {name: "continuer les algos",
-//     url: "http://www.france-ioi.org/user/perso.php?sLogin=aureliebayre&bShow=Afficher"},
-//     {name: "finir les exercices de webdesign",
-//     url: "https://github.com/AurelieBayre/integration"}
-// ]
-// //Store as Json
-// myStorage.setItem("priorities", JSON.stringify(priorities));
-
-
-
+//collecting user's Priorities and storing them.
 const focusPriorities = document.getElementById("focusPriorities")
 focusPriorities.addEventListener("submit", e => {
     e.preventDefault()
@@ -30,7 +13,6 @@ focusPriorities.addEventListener("submit", e => {
         myStorage.setItem("priorities", JSON.stringify(storedPriorities));
     } else {
         const firstPriority = [priorityData]
-        console.log(firstPriority)
         myStorage.setItem("priorities", JSON.stringify(firstPriority));
     }
 })
@@ -53,10 +35,6 @@ function makeList(arr){
     }
 }
 makeList(prioritiesFromStore);
-
-///////////////////////////////////////////////////////////////
-//// NEW DISPPLAYING RULES (no hard coding: from user inputs)
-
 
 //calculating the number of days until deadline
 function remainingDays(dateStr){
