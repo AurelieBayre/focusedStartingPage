@@ -8,7 +8,7 @@ let myStorage = window.localStorage;
 //myStorage.setItem("first test", "working!");
 
 ///OLD :
-const mesPrios = 
+const priorities = 
     [{name:"finir le cours php",
     url: "https://www.sololearn.com/Profile/6689025/PHP"},
     {name: "finir le cours SQL",
@@ -18,7 +18,11 @@ const mesPrios =
     {name: "finir les exercices de webdesign",
     url: "https://github.com/AurelieBayre/integration"}
 ]
+//Store as Json
+myStorage.setItem("priorities", JSON.stringify(priorities));
 
+//Retrieve those data:
+const prioritiesFromStore = JSON.parse(myStorage.getItem("priorities"))
 
 //Display those priorities:
 function makeList(arr){
@@ -26,8 +30,8 @@ function makeList(arr){
       // console.log(i)
         let a = document.createElement("a");
         let newLi = document.createElement("li");
-        a.textContent = mesPrios[i].name;
-        a.setAttribute("href", mesPrios[i].url);
+        a.textContent = arr[i].name;
+        a.setAttribute("href", arr[i].url);
         a.setAttribute("target", "_blank");
 
         newLi.appendChild(a);
@@ -36,7 +40,7 @@ function makeList(arr){
         //https://stackoverflow.com/questions/21977349/javascript-cant-add-href-to-list-item
     }
 }
-makeList(mesPrios);
+makeList(prioritiesFromStore);
 
 ///////////////////////////////////////////////////////////////
 //// NEW DISPPLAYING RULES (no hard coding: from user inputs)
