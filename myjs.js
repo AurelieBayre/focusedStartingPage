@@ -1,14 +1,8 @@
-//TODO: getting user input and caching user input functions
-//more specifically: get name, get goal, get goal date, get priorities.
-//and then, cache those in the browser!!!
-
 //Setting up localstorage.
 let myStorage = window.localStorage;
 
-//myStorage.setItem("first test", "working!");
-
 ///OLD :
-const priorities = 
+let priorities = 
     [{name:"finir le cours php",
     url: "https://www.sololearn.com/Profile/6689025/PHP"},
     {name: "finir le cours SQL",
@@ -33,7 +27,6 @@ function makeList(arr){
         a.textContent = arr[i].name;
         a.setAttribute("href", arr[i].url);
         a.setAttribute("target", "_blank");
-
         newLi.appendChild(a);
         document.getElementById("priorities").appendChild(newLi);
         // This Stackoverflow helped a lot: 
@@ -72,7 +65,6 @@ function toggleSettingsForm(){
     }
 }
 
-
 function populateHTML(obj) {
     function alternateCountdown(str) {
         if (str < 1) {
@@ -85,7 +77,6 @@ function populateHTML(obj) {
             return `${str} days to go before:`
         }
     }
-
     let greetings = `Hello ${obj.name}!`;
     let day = remainingDays(obj.deadline);
     let countdownMessage = alternateCountdown(day);
@@ -95,8 +86,6 @@ function populateHTML(obj) {
     display(countdownMessage, "countDown");
     display(goalMessage, "goal");
 }
-
-
 
 let storageReady = myStorage.length > 0;
 
@@ -122,34 +111,12 @@ document.getElementById("validateSettings").addEventListener("click", function()
     }
 
     //store this: 
-   
         myStorage.setItem("name", userName);
         myStorage.setItem("goal", userGoal);
         myStorage.setItem("deadline", userDeadline);
-        //myStorage.setItem("remaining", days);
-        //no don't store the remaining days! Calculate them everyday.
-   
-  
     //set the template literals to be passed in the html:
 
    populateHTML(userData); 
    });
 
 
-   ////////////
-   ///the priorities:
-   /*
-   1. make a new form
-   2 make a type text input.
-   3. make a button add 
-   4. make a button trash
-
-   5. when user click add:
-   assign value of input to variable. 
-   make a new html element and inject the value of input into it.
-   store item. (How?) (I mean, how do I set the key? )
-
-    add item to array. set key and value as such: setItem("prio" + index, userItem);
-
-
-   */
