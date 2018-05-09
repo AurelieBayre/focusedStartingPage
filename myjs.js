@@ -30,7 +30,8 @@ focusPriorities.addEventListener("submit", e => {
         myStorage.setItem("priorities", JSON.stringify(storedPriorities));
     } else {
         const firstPriority = [priorityData]
-        myStorage.setItem("priorities", JSON.stringify(storedPriorities));
+        console.log(firstPriority)
+        myStorage.setItem("priorities", JSON.stringify(firstPriority));
     }
 })
 //Retrieve those data:
