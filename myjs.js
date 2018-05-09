@@ -1,20 +1,38 @@
 //Setting up localstorage.
 let myStorage = window.localStorage;
 
-///OLD :
-let priorities = 
-    [{name:"finir le cours php",
-    url: "https://www.sololearn.com/Profile/6689025/PHP"},
-    {name: "finir le cours SQL",
-    url: "https://www.sololearn.com/Profile/6689025/SQL"},
-    {name: "continuer les algos",
-    url: "http://www.france-ioi.org/user/perso.php?sLogin=aureliebayre&bShow=Afficher"},
-    {name: "finir les exercices de webdesign",
-    url: "https://github.com/AurelieBayre/integration"}
-]
-//Store as Json
-myStorage.setItem("priorities", JSON.stringify(priorities));
+// ///OLD :
+// let priorities = 
+//     [{name:"finir le cours php",
+//     url: "https://www.sololearn.com/Profile/6689025/PHP"},
+//     {name: "finir le cours SQL",
+//     url: "https://www.sololearn.com/Profile/6689025/SQL"},
+//     {name: "continuer les algos",
+//     url: "http://www.france-ioi.org/user/perso.php?sLogin=aureliebayre&bShow=Afficher"},
+//     {name: "finir les exercices de webdesign",
+//     url: "https://github.com/AurelieBayre/integration"}
+// ]
+// //Store as Json
+// myStorage.setItem("priorities", JSON.stringify(priorities));
 
+
+
+const focusPriorities = document.getElementById("focusPriorities")
+focusPriorities.addEventListener("submit", e => {
+    e.preventDefault()
+    const priorityData = {
+        name: focusPriorities.elements["priorityName"].value,
+        url: focusPriorities.elements["priorityUrl"].value
+    }
+    if ("priorities"in myStorage){
+        let storedPriorities = JSON.parse(myStorage.getItem("priorities"))
+        storedPriorities.push(priorityData)
+        myStorage.setItem("priorities", JSON.stringify(storedPriorities));
+    } else {
+        const firstPriority = [priorityData]
+        myStorage.setItem("priorities", JSON.stringify(storedPriorities));
+    }
+})
 //Retrieve those data:
 const prioritiesFromStore = JSON.parse(myStorage.getItem("priorities"))
 
